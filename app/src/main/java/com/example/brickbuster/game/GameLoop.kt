@@ -46,8 +46,8 @@ class GameLoop(
         startTime = System.currentTimeMillis()
         while(isRunning) {
             val canvas = surfaceHolder.lockCanvas()
-            gameView.update()
-            gameView.draw(canvas)
+            val gameEntities: List<GameEntity> = gameView.update()
+            gameView.draw(canvas, gameEntities)
             surfaceHolder.unlockCanvasAndPost(canvas)
 
             updateCount++
