@@ -15,6 +15,10 @@ class Paddle(
         const val WIDTH: Float = 260F
     }
 
+    override var width: Float = WIDTH
+
+    override var height: Float = HEIGHT
+
     override fun render(context: Context, canvas: Canvas) {
         val paint = ColorHelper.getColor(context, R.color.white)
         canvas.drawRect(x, y+HEIGHT, x+WIDTH, y, paint)

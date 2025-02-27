@@ -13,10 +13,14 @@ class Ball(override var x: Float, override var y: Float) : GameEntity {
         const val RADIUS: Float = 10F
     }
 
-    //
-    var radius: Double = Random.nextDouble(0.0, 360.0)
+    override var width: Float = RADIUS
 
-    var radian = Math.toRadians(radius)
+    override var height: Float = RADIUS
+
+    //
+    var range: Double = Random.nextDouble(0.0, 360.0)
+
+    var radian = Math.toRadians(range)
 
     val speed = 20F
 
@@ -25,9 +29,9 @@ class Ball(override var x: Float, override var y: Float) : GameEntity {
         x += speed * cos(radian).toFloat()
     }
 
-    fun changeDirection(radius: Double) {
-        this.radius = radius
-        radian = Math.toRadians(radius)
+    fun changeDirection(range: Double) {
+        this.range = range
+        radian = Math.toRadians(range)
     }
 
     override fun render(context: Context, canvas: Canvas) {

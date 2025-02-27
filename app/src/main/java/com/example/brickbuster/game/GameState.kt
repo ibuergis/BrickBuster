@@ -1,6 +1,9 @@
 package com.example.brickbuster.game
 
-class GameState {
+import com.example.brickbuster.game.Arena.Companion.ARENA_HALF_HEIGHT
+import com.example.brickbuster.game.Arena.Companion.ARENA_HALF_WIDTH
+
+class GameState(screenWidth: Float, screenHeight: Float) {
     companion object {
         const val STATE_HOME_SCREEN = "home_screen"
         const val STATE_LEVEL_MENU = "level_menu"
@@ -10,6 +13,11 @@ class GameState {
         const val STATE_LOSE = "lose"
     }
 
+    val left = screenWidth/2 - ARENA_HALF_WIDTH
+    val top = screenHeight/2 - ARENA_HALF_HEIGHT
+    val right = screenWidth/2 + ARENA_HALF_WIDTH
+    val bottom = screenHeight/2 + ARENA_HALF_HEIGHT
+
     var currentState: String = STATE_GAME_START
 
     var balls: MutableList<Ball> = mutableListOf()
@@ -17,6 +25,8 @@ class GameState {
     var blocks: MutableList<Block> = mutableListOf()
 
     var paddle: MutableList<Paddle> = mutableListOf()
+
+    var arena: MutableList<Arena> = mutableListOf()
 
     private fun onHomeScreen() {
 
@@ -27,19 +37,22 @@ class GameState {
     }
 
     private fun onGameStart() {
-        var thing = 0
-        while (thing < 10) {
-            balls.add(Ball(500F, 500F))
-            thing++
-        }
-        paddle.add(Paddle(200F, 1000F))
-        blocks = Block.generateNewGrid()
+        arena.add(Arena(left, top, right, bottom))
+        balls.add(Ball(left + ARENA_HALF_WIDTH, top + ARENA_HALF_HEIGHT))
+        paddle.add(Paddle(left + ARENA_HALF_WIDTH - Paddle.WIDTH / 2, bottom - 50F))
+        blocks = Block.generateNewGrid(left + 1F, top + 1F)
         currentState = STATE_PLAYING
     }
 
     private fun onPlaying() {
         for(ball in balls) {
             ball.move()
+            for (gameEntity in blocks + paddle) {
+                val result = ball.hasCollided(gameEntity)
+                if (result !== null) {
+                    ball.changeDirection(ball.range - 180)
+                }
+            }
         }
     }
 
@@ -61,6 +74,6 @@ class GameState {
             STATE_LOSE -> onLose()
         }
 
-        return balls + blocks + paddle
+        return arena + paddle + balls + blocks
     }
 }
