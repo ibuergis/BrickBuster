@@ -11,13 +11,13 @@ class Block(override var x: Float, override var y: Float, override var width: Fl
         const val BLOCK_COUNT = 10
 
         private fun generateXRow(yParameter: Float, xParameter: Float): MutableList<Block> {
-            val width: Float = (Arena.ARENA_HALF_WIDTH * 2 - (5F * BLOCK_COUNT)) / BLOCK_COUNT
+            val width: Float = (Arena.ARENA_HALF_WIDTH * 2 - (2F * BLOCK_COUNT)) / BLOCK_COUNT
             val row: MutableList<Block> = mutableListOf()
             var x = xParameter
             var xList = 1
             while (xList <= BLOCK_COUNT) {
                 row.add(Block(x, yParameter, width))
-                x += width + 5F
+                x += width + 2F
                 xList++
             }
             return row

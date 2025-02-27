@@ -4,6 +4,11 @@ import android.content.Context
 import android.graphics.Canvas
 
 interface GameEntity {
+    companion object {
+        const val COLLISION_HORIZONTAL = "horizontal"
+        const val COLLISION_VERTICAL = "vertical"
+    }
+
     var x: Float
 
     var y: Float
@@ -32,19 +37,11 @@ interface GameEntity {
             }
 
             if (yDifference > xDifference) {
-                if (y > gameEntity.y) {
-                    return "top"
-                }
-                else {
-                    return "bottom"
-                }
+                return COLLISION_VERTICAL
             }
             else {
                 if (x > gameEntity.x) {
-                    return "left"
-                }
-                else {
-                    return "right"
+                    return COLLISION_HORIZONTAL
                 }
             }
         }

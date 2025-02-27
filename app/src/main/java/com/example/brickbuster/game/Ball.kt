@@ -22,7 +22,7 @@ class Ball(override var x: Float, override var y: Float) : GameEntity {
 
     var radian = Math.toRadians(range)
 
-    val speed = 20F
+    val speed = 10F
 
     fun move() {
         y += speed * sin(radian).toFloat()

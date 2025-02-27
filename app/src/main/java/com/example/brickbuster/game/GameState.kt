@@ -50,7 +50,18 @@ class GameState(screenWidth: Float, screenHeight: Float) {
             for (gameEntity in blocks + paddle) {
                 val result = ball.hasCollided(gameEntity)
                 if (result !== null) {
-                    ball.changeDirection(ball.range - 180)
+                    if (gameEntity is Block) {
+                        blocks.remove(gameEntity)
+                        if (blocks.isEmpty()) {
+                            currentState = STATE_WIN
+                        }
+                    }
+                    if (GameEntity.COLLISION_VERTICAL === result) {
+                        ball.changeDirection(180 - ball.range + 360 % 360)
+                    }
+                    else {
+                        ball.changeDirection(360 - ball.range + 360 % 360)
+                    }
                 }
             }
         }
