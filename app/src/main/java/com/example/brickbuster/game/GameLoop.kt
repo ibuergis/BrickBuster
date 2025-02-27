@@ -22,6 +22,10 @@ class GameLoop(
 
     private var gameStateInitialized = false
 
+    var canvasWidth: Int = 0
+
+    var canvasHeight: Int = 0
+
     private var gameState: GameState = GameState(0F, 0F)
 
     fun getAverageUPS(): Double {
@@ -36,6 +40,8 @@ class GameLoop(
         if(!gameStateInitialized) {
             val canvas = surfaceHolder.lockCanvas()
             gameState = GameState(canvas.width.toFloat(), canvas.height.toFloat())
+            canvasWidth = canvas.width
+            canvasHeight = canvas.height
             surfaceHolder.unlockCanvasAndPost(canvas)
             gameStateInitialized = true
         }
@@ -77,6 +83,10 @@ class GameLoop(
             }
         }
 
+    }
+
+    fun queuePaddleAction(movement: String) {
+        gameState.queuePaddleAction(movement)
     }
 
 }

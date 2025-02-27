@@ -28,6 +28,13 @@ class GameState(screenWidth: Float, screenHeight: Float) {
 
     var arena: MutableList<Arena> = mutableListOf()
 
+    fun clear() {
+        balls = mutableListOf()
+        blocks = mutableListOf()
+        paddle = mutableListOf()
+        arena = mutableListOf()
+    }
+
     private fun onHomeScreen() {
 
     }
@@ -46,7 +53,11 @@ class GameState(screenWidth: Float, screenHeight: Float) {
 
     private fun onPlaying() {
         val arena = this.arena.first()
-
+        val paddle = this.paddle.first()
+        val moveMade = paddle.commitNextAction()
+        if (moveMade && arena.entityIsOutOfBounds(paddle) !== null) {
+            paddle.revertPreviousAction()
+        }
         for(ball in balls) {
             ball.move()
             val result = arena.entityIsOutOfBounds(ball)
@@ -93,5 +104,9 @@ class GameState(screenWidth: Float, screenHeight: Float) {
         }
 
         return arena + paddle + balls + blocks
+    }
+
+    fun queuePaddleAction(movement: String) {
+        paddle.first().nextAction = movement
     }
 }

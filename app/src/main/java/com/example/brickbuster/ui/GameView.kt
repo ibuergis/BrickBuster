@@ -2,11 +2,13 @@ package com.example.brickbuster.ui
 
 import android.content.Context
 import android.graphics.Canvas
+import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.example.brickbuster.game.GameLoop
 import com.example.brickbuster.R
 import com.example.brickbuster.game.GameEntity
+import com.example.brickbuster.game.Paddle
 import com.example.brickbuster.helper.ColorHelper
 
 class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
@@ -20,7 +22,36 @@ class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
         gameLoop = GameLoop(holder, this)
 
         isFocusable = true
+        isFocusableInTouchMode = true
         this.context = context
+    }
+
+    override fun performClick(): Boolean {
+        super.performClick()
+        return true
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        super.onTouchEvent(event)
+
+        if (event === null) {
+            return false
+        }
+
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                if (event.x > gameLoop.canvasWidth / 2) {
+                    gameLoop.queuePaddleAction(Paddle.MOVING_RIGHT)
+                }
+                else {
+                    gameLoop.queuePaddleAction(Paddle.MOVING_LEFT)
+                }
+            }
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                gameLoop.queuePaddleAction(Paddle.STANDING)
+            }
+        }
+        return true
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
