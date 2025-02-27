@@ -39,13 +39,13 @@ class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
         drawUPS(canvas)
         drawFPS(canvas)
         for (gameEntity in gameEntities) {
-            gameEntity.render(canvas)
+            gameEntity.render(context, canvas)
         }
     }
 
     fun update(): List<GameEntity> {
 
-        return listOf(Paddle(context, 100F, 1000F))
+        return listOf(Paddle(100F, 1000F))
     }
 
     private fun drawUPS(canvas: Canvas) {
