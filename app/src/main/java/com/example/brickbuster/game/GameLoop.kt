@@ -10,7 +10,7 @@ class GameLoop(
 
     ): Thread() {
 
-    private val MAX_UPS: Double = 30.0
+    private val MAX_UPS: Double = 60.0
     private val TARGET_UPS: Double = 1000/MAX_UPS
 
     private val MAX_FPS: Double = 30.0
@@ -42,7 +42,6 @@ class GameLoop(
         var startTime: Long
         var elapsedTime: Long
         var sleepTime: Long
-
 
         super.run()
         startTime = System.currentTimeMillis()

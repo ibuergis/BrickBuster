@@ -35,11 +35,11 @@ class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
 
     fun draw(canvas: Canvas, gameEntities: List<GameEntity>) {
         super.draw(canvas)
-        drawUPS(canvas)
-        drawFPS(canvas)
         for (gameEntity in gameEntities) {
             gameEntity.render(context, canvas)
         }
+        drawUPS(canvas)
+        drawFPS(canvas)
     }
 
     private fun drawUPS(canvas: Canvas) {

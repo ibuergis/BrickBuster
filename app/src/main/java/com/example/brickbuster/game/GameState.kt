@@ -12,11 +12,11 @@ class GameState {
 
     var currentState: String = STATE_GAME_START
 
-    var balls: List<Ball> = listOf()
+    var balls: MutableList<Ball> = mutableListOf()
 
-    var blocks: List<Block> = listOf()
+    var blocks: MutableList<Block> = mutableListOf()
 
-    var paddle: Paddle? = null
+    var paddle: MutableList<Paddle> = mutableListOf()
 
     private fun onHomeScreen() {
 
@@ -27,11 +27,20 @@ class GameState {
     }
 
     private fun onGameStart() {
-
+        var thing = 0
+        while (thing < 10) {
+            balls.add(Ball(500F, 500F))
+            thing++
+        }
+        paddle.add(Paddle(200F, 1000F))
+        blocks = Block.generateNewGrid()
+        currentState = STATE_PLAYING
     }
 
     private fun onPlaying() {
-
+        for(ball in balls) {
+            ball.move()
+        }
     }
 
     private fun onWin() {
@@ -52,6 +61,6 @@ class GameState {
             STATE_LOSE -> onLose()
         }
 
-        return listOf(Paddle(200F, 1000F))
+        return balls + blocks + paddle
     }
 }
