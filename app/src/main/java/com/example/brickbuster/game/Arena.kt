@@ -26,4 +26,14 @@ class Arena(val left: Float, val top: Float, val right: Float, val bottom: Float
         paint.style = Paint.Style.STROKE
         canvas.drawRect(left, top, right, bottom, paint)
     }
+
+    fun entityIsOutOfBounds(gameEntity: GameEntity): String? {
+        if (gameEntity.x < left || gameEntity.x + gameEntity.width > right) {
+            return GameEntity.COLLISION_HORIZONTAL
+        }
+        if (gameEntity.y < top || gameEntity.y + gameEntity.height > bottom) {
+            return GameEntity.COLLISION_VERTICAL
+        }
+        return null
+    }
 }

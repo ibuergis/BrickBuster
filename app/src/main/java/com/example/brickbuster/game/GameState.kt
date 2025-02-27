@@ -45,8 +45,20 @@ class GameState(screenWidth: Float, screenHeight: Float) {
     }
 
     private fun onPlaying() {
+        val arena = this.arena.first()
+
         for(ball in balls) {
             ball.move()
+            val result = arena.entityIsOutOfBounds(ball)
+            if (result !== null) {
+                ball.calculateRedirection(arena, result)
+                if (ball.y + ball.height > arena.bottom) {
+                    balls.remove(ball)
+                    if (balls.isEmpty()) {
+                        currentState = STATE_LOSE
+                    }
+                }
+            }
             for (gameEntity in blocks + paddle) {
                 val result = ball.hasCollided(gameEntity)
                 if (result !== null) {
@@ -56,12 +68,7 @@ class GameState(screenWidth: Float, screenHeight: Float) {
                             currentState = STATE_WIN
                         }
                     }
-                    if (GameEntity.COLLISION_VERTICAL === result) {
-                        ball.changeDirection(180 - ball.range + 360 % 360)
-                    }
-                    else {
-                        ball.changeDirection(360 - ball.range + 360 % 360)
-                    }
+                    ball.calculateRedirection(gameEntity, result)
                 }
             }
         }

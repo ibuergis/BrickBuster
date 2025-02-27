@@ -36,13 +36,11 @@ interface GameEntity {
                 yDifference *= -1
             }
 
-            if (yDifference > xDifference) {
+            if (yDifference < xDifference) {
                 return COLLISION_VERTICAL
             }
             else {
-                if (x > gameEntity.x) {
-                    return COLLISION_HORIZONTAL
-                }
+                return COLLISION_HORIZONTAL
             }
         }
         return null

@@ -17,12 +17,11 @@ class Ball(override var x: Float, override var y: Float) : GameEntity {
 
     override var height: Float = RADIUS
 
-    //
-    var range: Double = Random.nextDouble(0.0, 360.0)
+    var range: Double = Random.nextDouble(230.0, 320.0)
 
     var radian = Math.toRadians(range)
 
-    val speed = 10F
+    val speed = 8F
 
     fun move() {
         y += speed * sin(radian).toFloat()
@@ -37,5 +36,20 @@ class Ball(override var x: Float, override var y: Float) : GameEntity {
     override fun render(context: Context, canvas: Canvas) {
         val paint = ColorHelper.getColor(context, R.color.white)
         canvas.drawCircle(x, y, RADIUS, paint)
+    }
+
+    fun calculateRedirection(collidedObject: GameEntity, result: String) {
+        val smallRandomization = Random.nextDouble( -2.0, 2.0)
+
+        if (collidedObject is Paddle) {
+        }
+
+        if (GameEntity.COLLISION_HORIZONTAL === result) {
+            changeDirection(180 - range + 360 + smallRandomization % 360)
+        }
+        else {
+            changeDirection(360 - range + 360 + smallRandomization % 360)
+        }
+
     }
 }
