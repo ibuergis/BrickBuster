@@ -1,5 +1,6 @@
 package com.example.brickbuster.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.view.MotionEvent
@@ -26,11 +27,7 @@ class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
         this.context = context
     }
 
-    override fun performClick(): Boolean {
-        super.performClick()
-        return true
-    }
-
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         super.onTouchEvent(event)
 

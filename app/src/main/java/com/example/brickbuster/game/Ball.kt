@@ -17,11 +17,11 @@ class Ball(override var x: Float, override var y: Float) : GameEntity {
 
     override var height: Float = RADIUS
 
-    var range: Double = Random.nextDouble(230.0, 320.0)
+    private var range: Double = Random.nextDouble(230.0, 320.0)
 
-    var radian = Math.toRadians(range)
+    private var radian = Math.toRadians(range)
 
-    val speed = 8F
+    private val speed = 8F
 
     fun move() {
         y += speed * sin(radian).toFloat()
@@ -39,9 +39,17 @@ class Ball(override var x: Float, override var y: Float) : GameEntity {
     }
 
     fun calculateRedirection(collidedObject: GameEntity, result: String) {
-        val smallRandomization = Random.nextDouble( -2.0, 2.0)
+        var smallRandomization = Random.nextDouble( -2.0, 2.0)
 
         if (collidedObject is Paddle) {
+            if (collidedObject.nextAction !== Paddle.STANDING) {
+                if (collidedObject.nextAction === Paddle.MOVING_LEFT) {
+                    smallRandomization -= 5.0
+                }
+                else if (collidedObject.nextAction === Paddle.MOVING_RIGHT) {
+                    smallRandomization += 5.0
+                }
+            }
         }
 
         if (GameEntity.COLLISION_HORIZONTAL === result) {
