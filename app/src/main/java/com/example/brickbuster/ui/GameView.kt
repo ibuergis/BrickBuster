@@ -7,7 +7,6 @@ import android.view.SurfaceView
 import com.example.brickbuster.game.GameLoop
 import com.example.brickbuster.R
 import com.example.brickbuster.game.GameEntity
-import com.example.brickbuster.game.Paddle
 import com.example.brickbuster.helper.ColorHelper
 
 class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
@@ -41,11 +40,6 @@ class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
         for (gameEntity in gameEntities) {
             gameEntity.render(context, canvas)
         }
-    }
-
-    fun update(): List<GameEntity> {
-
-        return listOf(Paddle(100F, 1000F))
     }
 
     private fun drawUPS(canvas: Canvas) {

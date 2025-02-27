@@ -20,6 +20,8 @@ class GameLoop(
     private var averageUPS: Double = 0.0
     private var averageFPS: Double = 0.0
 
+    private val gameState: GameState = GameState()
+
     fun getAverageUPS(): Double {
         return averageUPS
     }
@@ -46,7 +48,7 @@ class GameLoop(
         startTime = System.currentTimeMillis()
         while(isRunning) {
             val canvas = surfaceHolder.lockCanvas()
-            val gameEntities: List<GameEntity> = gameView.update()
+            val gameEntities: List<GameEntity> = gameState.update()
             gameView.draw(canvas, gameEntities)
             surfaceHolder.unlockCanvasAndPost(canvas)
 
