@@ -21,8 +21,6 @@ class GameView(private val context: Context): SurfaceView(context), SurfaceHolde
 
     var movementIntensity: Float = 0F
 
-    var sensorGameplayEnabled: Boolean = true
-
     private val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
     val gameLoop: GameLoop
@@ -54,7 +52,6 @@ class GameView(private val context: Context): SurfaceView(context), SurfaceHolde
                     movementIntensity = -1F
                 }
                 gameLoop.queuePaddleAction(Paddle.MOVING)
-//                sensorGameplayEnabled = false
             }
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 movementIntensity = 0F
@@ -77,7 +74,7 @@ class GameView(private val context: Context): SurfaceView(context), SurfaceHolde
     override fun onSensorChanged(event: SensorEvent?) {
         event?.let {
 
-            if (event.sensor.type == Sensor.TYPE_GYROSCOPE && sensorGameplayEnabled) {
+            if (event.sensor.type == Sensor.TYPE_GYROSCOPE) {
                 val rotationSpeed = event.values[2] * -1
                 if (-0.1 < rotationSpeed && rotationSpeed < 0.1) {
                     return
