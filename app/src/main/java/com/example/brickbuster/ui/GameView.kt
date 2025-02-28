@@ -89,6 +89,11 @@ class GameView(private val context: Context): SurfaceView(context), SurfaceHolde
         context.startActivity(intent)
     }
 
+    fun loadLoseScreen() {
+        val intent = Intent(context, LoseScreenView::class.java)
+        context.startActivity(intent)
+    }
+
     fun loadHomeScreen() {
         val intent = Intent(context, MainActivity::class.java)
         context.startActivity(intent)

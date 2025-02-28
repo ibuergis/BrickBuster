@@ -94,7 +94,7 @@ class GameState(screenWidth: Float, screenHeight: Float, private val gameView: G
 
     private fun onLose() {
         gameView.gameLoop.endLoop()
-        gameView.loadWinScreen()
+        gameView.loadLoseScreen()
     }
 
     fun update(): List<GameEntity> {
