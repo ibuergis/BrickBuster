@@ -18,8 +18,8 @@ class LoseScreenView(): AppCompatActivity() {
         continueButton.setOnClickListener {
             setContentView(gameView)
         }
-        val winReturnButton = findViewById<Button>(R.id.loseReturnButton)
-        winReturnButton.setOnClickListener {
+        val loseReturnButton = findViewById<Button>(R.id.loseReturnButton)
+        loseReturnButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             this.startActivity(intent)
         }

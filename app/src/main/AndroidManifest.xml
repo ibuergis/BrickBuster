@@ -32,6 +32,10 @@
             android:name=".ui.LoseScreenView"
             android:screenOrientation="landscape"
             tools:ignore="Instantiatable" />
+        <activity
+            android:name=".ui.LeaderboardView"
+            android:screenOrientation="landscape"
+            tools:ignore="Instantiatable" />
     </application>
 
 </manifest>

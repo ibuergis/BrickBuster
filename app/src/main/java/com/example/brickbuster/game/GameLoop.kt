@@ -13,12 +13,8 @@ class GameLoop(
     private val MAX_UPS: Double = 60.0
     private val TARGET_UPS: Double = 1000/MAX_UPS
 
-    private val MAX_FPS: Double = 30.0
-    private val TARGET_FPS: Double = 1000/MAX_FPS
-
     private var isRunning: Boolean = true
     private var averageUPS: Double = 0.0
-    private var averageFPS: Double = 0.0
 
     private var gameStateInitialized = false
 
@@ -30,10 +26,6 @@ class GameLoop(
 
     fun getAverageUPS(): Double {
         return averageUPS
-    }
-
-    fun getAverageFPS(): Double {
-        return averageFPS
     }
 
     fun startLoop() {
@@ -80,7 +72,6 @@ class GameLoop(
 
             if(elapsedTime >= 1000) {
                 averageUPS = updateCount / (0.001 * elapsedTime)
-                averageFPS = frameCount / (0.001 * elapsedTime)
                 updateCount = 0
                 frameCount = 0
                 startTime = System.currentTimeMillis()

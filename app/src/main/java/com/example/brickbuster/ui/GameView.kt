@@ -105,8 +105,7 @@ class GameView(private val context: Context): SurfaceView(context), SurfaceHolde
         for (gameEntity in gameEntities) {
             gameEntity.render(context, canvas)
         }
-        drawUPS(canvas)
-        drawFPS(canvas)
+//        drawUPS(canvas)
     }
 
     private fun drawUPS(canvas: Canvas) {
@@ -114,13 +113,6 @@ class GameView(private val context: Context): SurfaceView(context), SurfaceHolde
         val paint = ColorHelper.getColor(context, R.color.neonGreen)
         paint.textSize = 100F
         canvas.drawText("UPS: $averageUPS", 100F, 110F, paint)
-    }
-
-    private fun drawFPS(canvas: Canvas) {
-        val averageFPS: String = gameLoop.getAverageFPS().toString()
-        val paint = ColorHelper.getColor(context, R.color.neonGreen)
-        paint.textSize = 100F
-        canvas.drawText("FPS: $averageFPS", 100F, 210F, paint)
     }
 
     fun loadWinScreen() {
