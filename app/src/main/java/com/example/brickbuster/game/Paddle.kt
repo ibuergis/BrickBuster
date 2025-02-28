@@ -10,15 +10,16 @@ class Paddle(
     override var y: Float
 ): GameEntity {
 
-    private val speed: Float = 20F
+    var lastIntensity: Float = 0F
+
+    private val speed: Float = 12F
 
     companion object {
         const val HEIGHT: Float = 20F
         const val WIDTH: Float = 260F
 
-        const val MOVING_LEFT: String = "left"
-        const val MOVING_RIGHT: String = "right"
         const val STANDING: String = "standing"
+        const val MOVING: String = "moving"
     }
 
     var state: String = STANDING
@@ -34,36 +35,21 @@ class Paddle(
         canvas.drawRect(x, y+HEIGHT, x+WIDTH, y, paint)
     }
 
-    fun commitNextAction(): Boolean {
+    fun commitNextAction(intensity: Float): Boolean {
+        lastIntensity = intensity
         state = nextAction
         if (nextAction === STANDING) {
             return false
         }
 
-        if (nextAction === MOVING_LEFT) {
-            moveLeft()
-        }
-        else if (nextAction === MOVING_RIGHT) {
-            moveRight()
+        if (nextAction === MOVING) {
+            x += speed * intensity
         }
         return true
     }
 
-    fun revertPreviousAction() {
-        if (nextAction === MOVING_LEFT) {
-            moveRight()
-        }
-        else if (nextAction === MOVING_RIGHT) {
-            moveLeft()
-        }
+    fun revertPreviousAction(intensity: Float) {
+        x -= speed * intensity
         state = STANDING
-    }
-
-    fun moveLeft() {
-        x -= speed
-    }
-
-    fun moveRight() {
-        x += speed
     }
 }

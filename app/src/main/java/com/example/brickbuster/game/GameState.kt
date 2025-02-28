@@ -45,6 +45,7 @@ class GameState(screenWidth: Float, screenHeight: Float, private val gameView: G
     }
 
     private fun onGameStart() {
+        gameView.movementIntensity = 0F
         arena.add(Arena(left, top, right, bottom))
         balls.add(Ball(left + ARENA_HALF_WIDTH, top + ARENA_HALF_HEIGHT))
         paddle.add(Paddle(left + ARENA_HALF_WIDTH - Paddle.WIDTH / 2, bottom - 50F))
@@ -55,9 +56,9 @@ class GameState(screenWidth: Float, screenHeight: Float, private val gameView: G
     private fun onPlaying() {
         val arena = this.arena.first()
         val paddle = this.paddle.first()
-        val moveMade = paddle.commitNextAction()
+        val moveMade = paddle.commitNextAction(gameView.movementIntensity)
         if (moveMade && arena.entityIsOutOfBounds(paddle) !== null) {
-            paddle.revertPreviousAction()
+            paddle.revertPreviousAction(gameView.movementIntensity)
         }
         for(ball in balls) {
             ball.move()

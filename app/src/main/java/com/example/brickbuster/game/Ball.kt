@@ -43,10 +43,10 @@ class Ball(override var x: Float, override var y: Float) : GameEntity {
 
         if (collidedObject is Paddle) {
             if (collidedObject.nextAction !== Paddle.STANDING) {
-                if (collidedObject.nextAction === Paddle.MOVING_LEFT) {
+                if (collidedObject.lastIntensity < 0) {
                     smallRandomization -= 5.0
                 }
-                else if (collidedObject.nextAction === Paddle.MOVING_RIGHT) {
+                else {
                     smallRandomization += 5.0
                 }
             }
