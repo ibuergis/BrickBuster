@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Brick Buster"
 include(":app")
- 
