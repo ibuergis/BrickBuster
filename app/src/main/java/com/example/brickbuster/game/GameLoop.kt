@@ -26,7 +26,7 @@ class GameLoop(
 
     var canvasHeight: Int = 0
 
-    private var gameState: GameState = GameState(0F, 0F)
+    private var gameState: GameState = GameState(0F, 0F, gameView)
 
     fun getAverageUPS(): Double {
         return averageUPS
@@ -39,7 +39,7 @@ class GameLoop(
     fun startLoop() {
         if(!gameStateInitialized) {
             val canvas = surfaceHolder.lockCanvas()
-            gameState = GameState(canvas.width.toFloat(), canvas.height.toFloat())
+            gameState = GameState(canvas.width.toFloat(), canvas.height.toFloat(), gameView)
             canvasWidth = canvas.width
             canvasHeight = canvas.height
             surfaceHolder.unlockCanvasAndPost(canvas)
@@ -47,6 +47,10 @@ class GameLoop(
         }
         isRunning = true
         start()
+    }
+
+    fun endLoop() {
+        isRunning = false
     }
 
     override fun run() {

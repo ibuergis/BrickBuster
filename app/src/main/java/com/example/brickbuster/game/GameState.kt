@@ -2,8 +2,9 @@ package com.example.brickbuster.game
 
 import com.example.brickbuster.game.Arena.Companion.ARENA_HALF_HEIGHT
 import com.example.brickbuster.game.Arena.Companion.ARENA_HALF_WIDTH
+import com.example.brickbuster.ui.GameView
 
-class GameState(screenWidth: Float, screenHeight: Float) {
+class GameState(screenWidth: Float, screenHeight: Float, private val gameView: GameView) {
     companion object {
         const val STATE_HOME_SCREEN = "home_screen"
         const val STATE_LEVEL_MENU = "level_menu"
@@ -36,7 +37,7 @@ class GameState(screenWidth: Float, screenHeight: Float) {
     }
 
     private fun onHomeScreen() {
-
+        gameView.loadHomeScreen()
     }
 
     private fun onLevelMenu() {
@@ -67,6 +68,7 @@ class GameState(screenWidth: Float, screenHeight: Float) {
                     balls.remove(ball)
                     if (balls.isEmpty()) {
                         currentState = STATE_LOSE
+                        gameView.loadWinScreen()
                     }
                 }
             }
@@ -86,11 +88,13 @@ class GameState(screenWidth: Float, screenHeight: Float) {
     }
 
     private fun onWin() {
-
+        gameView.gameLoop.endLoop()
+        gameView.loadWinScreen()
     }
 
     private fun onLose() {
-
+        gameView.gameLoop.endLoop()
+        gameView.loadWinScreen()
     }
 
     fun update(): List<GameEntity> {

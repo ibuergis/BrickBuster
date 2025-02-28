@@ -2,6 +2,7 @@ package com.example.brickbuster.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.view.MotionEvent
 import android.view.SurfaceHolder
@@ -12,11 +13,9 @@ import com.example.brickbuster.game.GameEntity
 import com.example.brickbuster.game.Paddle
 import com.example.brickbuster.helper.ColorHelper
 
-class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
+class GameView(private val context: Context): SurfaceView(context), SurfaceHolder.Callback {
 
-    private val gameLoop: GameLoop
-
-    private val context: Context
+    val gameLoop: GameLoop
 
     init {
         holder.addCallback(this)
@@ -24,8 +23,9 @@ class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
 
         isFocusable = true
         isFocusableInTouchMode = true
-        this.context = context
     }
+
+
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -82,5 +82,15 @@ class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
         val paint = ColorHelper.getColor(context, R.color.neonGreen)
         paint.textSize = 100F
         canvas.drawText("FPS: $averageFPS", 100F, 210F, paint)
+    }
+
+    fun loadWinScreen() {
+        val intent = Intent(context, WinScreenView::class.java)
+        context.startActivity(intent)
+    }
+
+    fun loadHomeScreen() {
+        val intent = Intent(context, MainActivity::class.java)
+        context.startActivity(intent)
     }
 }
